@@ -42,7 +42,9 @@ def absolutify(request, path, _enforce_https=True):
     # if settings_enforce_https is False:
     #      _enforce_https = False
     if _enforce_https is True:
+        print("absolutify :: Upgrading to https...")
         url = url.replace("http", "https")
+        print("absolutify :: HTTPS Upgrade", url)
     return url
 
 
