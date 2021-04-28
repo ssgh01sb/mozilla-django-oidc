@@ -35,9 +35,15 @@ def import_from_settings(attr, *args):
         raise ImproperlyConfigured('Setting {0} not found'.format(attr))
 
 
-def absolutify(request, path):
+def absolutify(request, path, _enforce_https=True):
     """Return the absolute URL of a path."""
-    return request.build_absolute_uri(path)
+    url = request.build_absolute_uri(path)
+    settings_absolutify_enforce_https = import_from_settings('OIDC_ABSOLUTIFY_ENFORCE_HTTPS', True)
+    if settings_enforce_https is False:
+         _enforce_https = False
+    if _enforce_https is True:
+        url = url.replace("http", "https")
+    return url
 
 
 def is_authenticated(user):
